@@ -56,7 +56,7 @@ contract ZkDataHub {
         axiomV1Query = _axiomV1Query;
     }
 
-    function storeQueryResponse(AxiomResponseStruct calldata axiomResponse) external {
+    function storeQueryResponses(AxiomResponseStruct calldata axiomResponse) external {
         _validateAxiomData(axiomResponse);
 
         // Store the block responses

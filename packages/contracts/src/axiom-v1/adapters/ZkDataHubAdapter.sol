@@ -11,7 +11,7 @@ contract ZkDataHubAdapter {
         zkDataHub = _zkDataHub;
     }
 
-    function _getBlockData(uint256 blockNumber) internal view returns (bytes32) {
+    function _getBlockData(uint256 blockNumber) internal view returns (bytes32 blockHash) {
         return ZkDataHub(zkDataHub).blockData(blockNumber);
     }
 

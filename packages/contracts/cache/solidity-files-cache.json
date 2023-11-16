@@ -2105,10 +2105,10 @@
         }
       }
     },
-    "src/AxiomStructs.sol": {
-      "lastModificationDate": 1700088728210,
-      "contentHash": "876e45ed6a00af825f5b41460c19fdd9",
-      "sourceName": "src/AxiomStructs.sol",
+    "script/deploy/UniswapV3TwapOracleDeploy.s.sol": {
+      "lastModificationDate": 1700162450223,
+      "contentHash": "625b552e2a38baaf7c65b69d9ba18684",
+      "sourceName": "script/deploy/UniswapV3TwapOracleDeploy.s.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -2139,144 +2139,70 @@
         }
       },
       "imports": [
+        "lib/@uniswap/v3-core/contracts/libraries/Oracle.sol",
+        "lib/forge-std/src/Base.sol",
+        "lib/forge-std/src/Script.sol",
+        "lib/forge-std/src/StdChains.sol",
+        "lib/forge-std/src/StdCheats.sol",
+        "lib/forge-std/src/StdJson.sol",
+        "lib/forge-std/src/StdMath.sol",
+        "lib/forge-std/src/StdStorage.sol",
+        "lib/forge-std/src/StdStyle.sol",
+        "lib/forge-std/src/StdUtils.sol",
+        "lib/forge-std/src/Vm.sol",
+        "lib/forge-std/src/console.sol",
+        "lib/forge-std/src/console2.sol",
+        "lib/forge-std/src/interfaces/IMulticall3.sol",
+        "lib/forge-std/src/safeconsole.sol",
+        "src/axiom-v2/UniswapV3TwapOracle.sol",
+        "src/axiom-v2/abstracts/AxiomV2Client.sol",
+        "src/axiom-v2/interfaces/IAxiomV2Client.sol"
+      ],
+      "versionRequirement": "=0.8.19",
+      "artifacts": {
+        "UniswapV3TwapOracleDeploy": {
+          "0.8.19+commit.7dd6d404.Darwin.appleclang": "UniswapV3TwapOracleDeploy.s.sol/UniswapV3TwapOracleDeploy.json"
+        }
+      }
+    },
+    "src/axiom-v1/ZkDataHub.sol": {
+      "lastModificationDate": 1700162048984,
+      "contentHash": "5c23dcbe6ca510afdcd9a5727f131e84",
+      "sourceName": "src/axiom-v1/ZkDataHub.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10000
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "none",
+            "appendCBOR": false
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "lib/@uniswap/v3-core/contracts/libraries/Oracle.sol",
         "lib/axiom-v1-contracts/contracts/interfaces/IAxiomV1Query.sol",
         "lib/axiom-v1-contracts/contracts/interfaces/core/IAxiomV1Verifier.sol",
         "lib/axiom-v1-contracts/contracts/libraries/configuration/AxiomV1Configuration.sol"
-      ],
-      "versionRequirement": ">=0.8.19, <0.9.0",
-      "artifacts": {
-        "AxiomStructs": {
-          "0.8.19+commit.7dd6d404.Darwin.appleclang": "AxiomStructs.sol/AxiomStructs.json"
-        }
-      }
-    },
-    "src/Counter.sol": {
-      "lastModificationDate": 1700083069930,
-      "contentHash": "ae6c800a2b4c57768024d6e9423d39e8",
-      "sourceName": "src/Counter.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 10000
-          },
-          "metadata": {
-            "useLiteralContent": false,
-            "bytecodeHash": "none",
-            "appendCBOR": false
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "paris",
-          "libraries": {}
-        }
-      },
-      "imports": [],
-      "versionRequirement": "^0.8.13",
-      "artifacts": {
-        "Counter": {
-          "0.8.19+commit.7dd6d404.Darwin.appleclang": "Counter.sol/Counter.json"
-        }
-      }
-    },
-    "src/UniswapV3TwapOracle.sol": {
-      "lastModificationDate": 1700088728212,
-      "contentHash": "00b7ef40f00beefc9f1051273994394d",
-      "sourceName": "src/UniswapV3TwapOracle.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 10000
-          },
-          "metadata": {
-            "useLiteralContent": false,
-            "bytecodeHash": "none",
-            "appendCBOR": false
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "paris",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "lib/@uniswap/v3-core/contracts/libraries/Oracle.sol",
-        "lib/axiom-v1-contracts/contracts/interfaces/IAxiomV1Query.sol",
-        "lib/axiom-v1-contracts/contracts/interfaces/core/IAxiomV1Verifier.sol",
-        "lib/axiom-v1-contracts/contracts/libraries/configuration/AxiomV1Configuration.sol",
-        "src/AxiomStructs.sol"
-      ],
-      "versionRequirement": ">=0.8.19, <0.9.0",
-      "artifacts": {
-        "UniswapV3TwapOracle": {
-          "0.8.19+commit.7dd6d404.Darwin.appleclang": "UniswapV3TwapOracle.sol/UniswapV3TwapOracle.json"
-        }
-      }
-    },
-    "src/ZkDataHub.sol": {
-      "lastModificationDate": 1700088728210,
-      "contentHash": "0c8435e9dd0e0055a2decaf698a8c221",
-      "sourceName": "src/ZkDataHub.sol",
-      "solcConfig": {
-        "settings": {
-          "optimizer": {
-            "enabled": true,
-            "runs": 10000
-          },
-          "metadata": {
-            "useLiteralContent": false,
-            "bytecodeHash": "none",
-            "appendCBOR": false
-          },
-          "outputSelection": {
-            "*": {
-              "": [
-                "ast"
-              ],
-              "*": [
-                "abi",
-                "evm.bytecode",
-                "evm.deployedBytecode",
-                "evm.methodIdentifiers",
-                "metadata"
-              ]
-            }
-          },
-          "evmVersion": "paris",
-          "libraries": {}
-        }
-      },
-      "imports": [
-        "lib/@uniswap/v3-core/contracts/libraries/Oracle.sol",
-        "lib/axiom-v1-contracts/contracts/interfaces/IAxiomV1Query.sol",
-        "lib/axiom-v1-contracts/contracts/interfaces/core/IAxiomV1Verifier.sol",
-        "lib/axiom-v1-contracts/contracts/libraries/configuration/AxiomV1Configuration.sol",
-        "src/AxiomStructs.sol"
       ],
       "versionRequirement": ">=0.8.19, <0.9.0",
       "artifacts": {
@@ -2285,10 +2211,10 @@
         }
       }
     },
-    "src/adapters/UniswapV3PoolAdapter.sol": {
-      "lastModificationDate": 1700088962267,
-      "contentHash": "b4394dd7259367d7fdf5efa36441f24c",
-      "sourceName": "src/adapters/UniswapV3PoolAdapter.sol",
+    "src/axiom-v1/adapters/UniswapV3PoolAdapter.sol": {
+      "lastModificationDate": 1700162048984,
+      "contentHash": "a17befb3571083666321f528682df7e6",
+      "sourceName": "src/axiom-v1/adapters/UniswapV3PoolAdapter.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -2352,9 +2278,8 @@
         "lib/axiom-v1-contracts/contracts/interfaces/IAxiomV1Query.sol",
         "lib/axiom-v1-contracts/contracts/interfaces/core/IAxiomV1Verifier.sol",
         "lib/axiom-v1-contracts/contracts/libraries/configuration/AxiomV1Configuration.sol",
-        "src/AxiomStructs.sol",
-        "src/ZkDataHub.sol",
-        "src/adapters/ZkDataHubAdapter.sol"
+        "src/axiom-v1/ZkDataHub.sol",
+        "src/axiom-v1/adapters/ZkDataHubAdapter.sol"
       ],
       "versionRequirement": ">=0.8.19, <0.9.0",
       "artifacts": {
@@ -2363,10 +2288,10 @@
         }
       }
     },
-    "src/adapters/ZkDataHubAdapter.sol": {
-      "lastModificationDate": 1700088764528,
-      "contentHash": "8ce2c9a293f615156325e15bc5fd6bbb",
-      "sourceName": "src/adapters/ZkDataHubAdapter.sol",
+    "src/axiom-v1/adapters/ZkDataHubAdapter.sol": {
+      "lastModificationDate": 1700162048983,
+      "contentHash": "a26eb8c8496e91006fe7531c00bf170f",
+      "sourceName": "src/axiom-v1/adapters/ZkDataHubAdapter.sol",
       "solcConfig": {
         "settings": {
           "optimizer": {
@@ -2401,13 +2326,267 @@
         "lib/axiom-v1-contracts/contracts/interfaces/IAxiomV1Query.sol",
         "lib/axiom-v1-contracts/contracts/interfaces/core/IAxiomV1Verifier.sol",
         "lib/axiom-v1-contracts/contracts/libraries/configuration/AxiomV1Configuration.sol",
-        "src/AxiomStructs.sol",
-        "src/ZkDataHub.sol"
+        "src/axiom-v1/ZkDataHub.sol"
       ],
       "versionRequirement": ">=0.8.19, <0.9.0",
       "artifacts": {
         "ZkDataHubAdapter": {
           "0.8.19+commit.7dd6d404.Darwin.appleclang": "ZkDataHubAdapter.sol/ZkDataHubAdapter.json"
+        }
+      }
+    },
+    "src/axiom-v2/UniswapV3TwapOracle.sol": {
+      "lastModificationDate": 1700162048984,
+      "contentHash": "45b53a0ea9e8ed53696a0cadad0b87d8",
+      "sourceName": "src/axiom-v2/UniswapV3TwapOracle.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10000
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "none",
+            "appendCBOR": false
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "lib/@uniswap/v3-core/contracts/libraries/Oracle.sol",
+        "src/axiom-v2/abstracts/AxiomV2Client.sol",
+        "src/axiom-v2/interfaces/IAxiomV2Client.sol"
+      ],
+      "versionRequirement": ">=0.8.19, <0.9.0",
+      "artifacts": {
+        "UniswapV3TwapOracle": {
+          "0.8.19+commit.7dd6d404.Darwin.appleclang": "UniswapV3TwapOracle.sol/UniswapV3TwapOracle.json"
+        }
+      }
+    },
+    "src/axiom-v2/abstracts/AxiomV2Client.sol": {
+      "lastModificationDate": 1700162048983,
+      "contentHash": "e7ff5dec6a6a04dda65bd1809f574e41",
+      "sourceName": "src/axiom-v2/abstracts/AxiomV2Client.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10000
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "none",
+            "appendCBOR": false
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "src/axiom-v2/interfaces/IAxiomV2Client.sol"
+      ],
+      "versionRequirement": "=0.8.19",
+      "artifacts": {
+        "AxiomV2Client": {
+          "0.8.19+commit.7dd6d404.Darwin.appleclang": "AxiomV2Client.sol/AxiomV2Client.json"
+        }
+      }
+    },
+    "src/axiom-v2/interfaces/IAxiomV2Client.sol": {
+      "lastModificationDate": 1700162048983,
+      "contentHash": "35194e37a71d17221b0be8b41b26139a",
+      "sourceName": "src/axiom-v2/interfaces/IAxiomV2Client.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10000
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "none",
+            "appendCBOR": false
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": "=0.8.19",
+      "artifacts": {
+        "IAxiomV2Client": {
+          "0.8.19+commit.7dd6d404.Darwin.appleclang": "IAxiomV2Client.sol/IAxiomV2Client.json"
+        }
+      }
+    },
+    "src/axiom-v2/interfaces/IAxiomV2HeaderVerifier.sol": {
+      "lastModificationDate": 1700162048983,
+      "contentHash": "521eb13b19bcea79cbbd95605056c12c",
+      "sourceName": "src/axiom-v2/interfaces/IAxiomV2HeaderVerifier.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10000
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "none",
+            "appendCBOR": false
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": "=0.8.19",
+      "artifacts": {
+        "IAxiomV2HeaderVerifier": {
+          "0.8.19+commit.7dd6d404.Darwin.appleclang": "IAxiomV2HeaderVerifier.sol/IAxiomV2HeaderVerifier.json"
+        }
+      }
+    },
+    "src/axiom-v2/interfaces/IAxiomV2Query.sol": {
+      "lastModificationDate": 1700162048986,
+      "contentHash": "454734d0b664cebfdb8a87d8bd527520",
+      "sourceName": "src/axiom-v2/interfaces/IAxiomV2Query.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10000
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "none",
+            "appendCBOR": false
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [
+        "src/axiom-v2/interfaces/IAxiomV2HeaderVerifier.sol",
+        "src/axiom-v2/interfaces/IAxiomV2Verifier.sol"
+      ],
+      "versionRequirement": "=0.8.19",
+      "artifacts": {
+        "IAxiomV2Query": {
+          "0.8.19+commit.7dd6d404.Darwin.appleclang": "IAxiomV2Query.sol/IAxiomV2Query.json"
+        }
+      }
+    },
+    "src/axiom-v2/interfaces/IAxiomV2Verifier.sol": {
+      "lastModificationDate": 1700162048983,
+      "contentHash": "b428e0ace3d1d7941203a9296494ffa3",
+      "sourceName": "src/axiom-v2/interfaces/IAxiomV2Verifier.sol",
+      "solcConfig": {
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 10000
+          },
+          "metadata": {
+            "useLiteralContent": false,
+            "bytecodeHash": "none",
+            "appendCBOR": false
+          },
+          "outputSelection": {
+            "*": {
+              "": [
+                "ast"
+              ],
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ]
+            }
+          },
+          "evmVersion": "paris",
+          "libraries": {}
+        }
+      },
+      "imports": [],
+      "versionRequirement": "=0.8.19",
+      "artifacts": {
+        "IAxiomV2Verifier": {
+          "0.8.19+commit.7dd6d404.Darwin.appleclang": "IAxiomV2Verifier.sol/IAxiomV2Verifier.json"
         }
       }
     }
