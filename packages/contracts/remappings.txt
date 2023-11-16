@@ -1,0 +1,6 @@
+@openzeppelin/contracts-upgradeable/=lib/axiom-v1-contracts/lib/openzeppelin-contracts-upgradeable/contracts/
+@openzeppelin/contracts/=lib/axiom-v1-contracts/lib/openzeppelin-contracts/contracts/
+@uniswap/=lib/@uniswap/
+axiom-v1-contracts/=lib/axiom-v1-contracts/
+ds-test/=lib/axiom-v1-contracts/lib/forge-std/lib/ds-test/src/
+forge-std/=lib/forge-std/src/
