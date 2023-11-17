@@ -1,4 +1,5 @@
 {
+  "name": "@zk-data-hub/ponder",
   "private": true,
   "scripts": {
     "dev": "ponder dev",
