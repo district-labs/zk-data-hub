@@ -18,7 +18,6 @@ contract UniswapV3TwapOracle is AxiomV2Client {
     bytes32 public axiomCallbackQuerySchema;
 
     /// @notice Mapping of keccak256(poolAddress, blockNumber) => observation
-    /// @dev observation.blockNumber == 0 indicates that the observation is not yet initialized
     mapping(bytes32 observationHash => Oracle.Observation observation) public observations;
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -46,6 +45,8 @@ contract UniswapV3TwapOracle is AxiomV2Client {
 
     /// @dev start observation block number is greater than the end observation block number
     error InvalidObservationOrder();
+
+    error ObservationAlreadyStored(address pool, uint256 blockNumber);
 
     /*//////////////////////////////////////////////////////////////////////////
                                 CONSTRUCTOR
@@ -215,12 +216,18 @@ contract UniswapV3TwapOracle is AxiomV2Client {
         uint256 observationsSlotValue = uint256(axiomResults[2]);
         uint256 observationsSlot = uint256(axiomResults[3]);
 
-        if( observationsSlotValue == 0 ) revert InvalidSlotValue();
-        if( observationsSlot != POOL_OBSERVATIONS_SLOT) revert InvalidObservationsSlot();
+        if (observationsSlotValue == 0) revert InvalidSlotValue();
+        if (observationsSlot != POOL_OBSERVATIONS_SLOT) revert InvalidObservationsSlot();
 
         Oracle.Observation memory observation = _unpackObservation(observationsSlotValue);
 
-        observations[_getObservationHash(poolAddress, blockNumber)] = observation;
+        bytes32 observationHash = _getObservationHash(poolAddress, blockNumber);
+
+        if (observations[observationHash].initialized) {
+            revert ObservationAlreadyStored(poolAddress, blockNumber);
+        }
+
+        observations[observationHash] = observation;
 
         emit ObservationStored(poolAddress, blockNumber);
     }
