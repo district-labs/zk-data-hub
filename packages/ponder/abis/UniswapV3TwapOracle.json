@@ -1,0 +1,427 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_axiomV2QueryAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint64",
+        "name": "_callbackSourceChainId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "_axiomCallbackQuerySchema",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidObservationOrder",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidObservationsSlot",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidSlotValue",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "pool",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "blockNumber",
+        "type": "uint256"
+      }
+    ],
+    "name": "ObservationNotStored",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint64",
+        "name": "sourceChainId",
+        "type": "uint64"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "callerAddr",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "querySchema",
+        "type": "bytes32"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "queryId",
+        "type": "uint256"
+      }
+    ],
+    "name": "AxiomV2Call",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "pool",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "blockNumber",
+        "type": "uint256"
+      }
+    ],
+    "name": "ObservationStored",
+    "type": "event"
+  },
+  {
+    "inputs": [],
+    "name": "axiomCallbackQuerySchema",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "sourceChainId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "address",
+        "name": "callerAddr",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes32",
+        "name": "querySchema",
+        "type": "bytes32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "queryId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes32[]",
+        "name": "axiomResults",
+        "type": "bytes32[]"
+      },
+      {
+        "internalType": "bytes",
+        "name": "callbackExtraData",
+        "type": "bytes"
+      }
+    ],
+    "name": "axiomV2Callback",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "axiomV2QueryAddress",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "callbackSourceChainId",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "poolAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "blockNumber",
+        "type": "uint256"
+      }
+    ],
+    "name": "getObservation",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint32",
+            "name": "blockTimestamp",
+            "type": "uint32"
+          },
+          {
+            "internalType": "int56",
+            "name": "tickCumulative",
+            "type": "int56"
+          },
+          {
+            "internalType": "uint160",
+            "name": "secondsPerLiquidityCumulativeX128",
+            "type": "uint160"
+          },
+          {
+            "internalType": "bool",
+            "name": "initialized",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct Oracle.Observation",
+        "name": "observation",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "poolAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startBlockNumber",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endBlockNumber",
+        "type": "uint256"
+      }
+    ],
+    "name": "getTwaLiquidity",
+    "outputs": [
+      {
+        "internalType": "uint160",
+        "name": "twaLiquidity",
+        "type": "uint160"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint32",
+            "name": "blockTimestamp",
+            "type": "uint32"
+          },
+          {
+            "internalType": "int56",
+            "name": "tickCumulative",
+            "type": "int56"
+          },
+          {
+            "internalType": "uint160",
+            "name": "secondsPerLiquidityCumulativeX128",
+            "type": "uint160"
+          },
+          {
+            "internalType": "bool",
+            "name": "initialized",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct Oracle.Observation",
+        "name": "startObservation",
+        "type": "tuple"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint32",
+            "name": "blockTimestamp",
+            "type": "uint32"
+          },
+          {
+            "internalType": "int56",
+            "name": "tickCumulative",
+            "type": "int56"
+          },
+          {
+            "internalType": "uint160",
+            "name": "secondsPerLiquidityCumulativeX128",
+            "type": "uint160"
+          },
+          {
+            "internalType": "bool",
+            "name": "initialized",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct Oracle.Observation",
+        "name": "endObservation",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "poolAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "startBlockNumber",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endBlockNumber",
+        "type": "uint256"
+      }
+    ],
+    "name": "getTwaTick",
+    "outputs": [
+      {
+        "internalType": "int24",
+        "name": "twaTick",
+        "type": "int24"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint32",
+            "name": "blockTimestamp",
+            "type": "uint32"
+          },
+          {
+            "internalType": "int56",
+            "name": "tickCumulative",
+            "type": "int56"
+          },
+          {
+            "internalType": "uint160",
+            "name": "secondsPerLiquidityCumulativeX128",
+            "type": "uint160"
+          },
+          {
+            "internalType": "bool",
+            "name": "initialized",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct Oracle.Observation",
+        "name": "startObservation",
+        "type": "tuple"
+      },
+      {
+        "components": [
+          {
+            "internalType": "uint32",
+            "name": "blockTimestamp",
+            "type": "uint32"
+          },
+          {
+            "internalType": "int56",
+            "name": "tickCumulative",
+            "type": "int56"
+          },
+          {
+            "internalType": "uint160",
+            "name": "secondsPerLiquidityCumulativeX128",
+            "type": "uint160"
+          },
+          {
+            "internalType": "bool",
+            "name": "initialized",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct Oracle.Observation",
+        "name": "endObservation",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes32",
+        "name": "observationHash",
+        "type": "bytes32"
+      }
+    ],
+    "name": "observations",
+    "outputs": [
+      {
+        "internalType": "uint32",
+        "name": "blockTimestamp",
+        "type": "uint32"
+      },
+      {
+        "internalType": "int56",
+        "name": "tickCumulative",
+        "type": "int56"
+      },
+      {
+        "internalType": "uint160",
+        "name": "secondsPerLiquidityCumulativeX128",
+        "type": "uint160"
+      },
+      {
+        "internalType": "bool",
+        "name": "initialized",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

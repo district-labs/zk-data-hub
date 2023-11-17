@@ -37,6 +37,7 @@ yarn-error.log*
 
 # directories
 cache
+broadcast
 node_modules
 out
 
