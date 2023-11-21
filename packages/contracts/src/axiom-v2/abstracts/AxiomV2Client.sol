@@ -21,7 +21,7 @@ abstract contract AxiomV2Client is IAxiomV2Client {
         external
     {
         require(msg.sender == axiomV2QueryAddress, "AxiomV2Client: caller must be axiomV2QueryAddress");
-        emit AxiomV2Call(sourceChainId, callerAddr, querySchema, queryId);
+        emit AxiomV2Call(sourceChainId, callerAddr, querySchema, queryId, axiomResults);
 
         _validateAxiomV2Call(sourceChainId, callerAddr, querySchema);
         _axiomV2Callback(sourceChainId, callerAddr, querySchema, queryId, axiomResults, callbackExtraData);
