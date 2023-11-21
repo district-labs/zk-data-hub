@@ -13,7 +13,7 @@ export const config: Config = {
     {
       name: "UniswapV3TwapOracle",
       network: "goerli",
-      address: "0x74F89Ef626fF297FF6E1eB2A2C6A470ef1bc92DA",
+      address: process.env.UNI_V3_TWAP_ORACLE_ADDRESS as `0x${string}`,
       abi: "./abis/UniswapV3TwapOracle.json",
       startBlock: 10055200,
     },
