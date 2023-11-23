@@ -4,9 +4,9 @@ import { env } from "@/env.mjs"
 import { useQuery } from "@tanstack/react-query"
 import request from "graphql-request"
 
-import { getPoolInfo } from "@/lib/ponder/queries/pools"
 import { PoolDetailsCard } from "@/components/app/pool-details-card"
 import { PoolObservationCard } from "@/components/app/pool-observation-card"
+import { getPoolInfo } from "@/lib/ponder/queries/pools"
 
 interface PoolPageProps {
   params: { address: string }
@@ -16,9 +16,8 @@ export default function PoolPage({ params }: PoolPageProps) {
   const {
     data: poolInfo,
     isLoading,
-    isError,
   } = useQuery({
-    queryKey: ["getPoolInfo"],
+    queryKey: ["getPoolInfo", params.address],
     queryFn: async () =>
       request(env.NEXT_PUBLIC_PONDER_URL, getPoolInfo, {
         poolId: params.address,
