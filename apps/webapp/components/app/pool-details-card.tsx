@@ -2,7 +2,7 @@
 
 import type { Address } from "viem"
 
-import { useErc20Name } from "@/lib/generated/blockchain"
+import { useErc20Name, useErc20Symbol } from "@/lib/generated/blockchain"
 import { truncateEthAddress } from "@/lib/utils"
 
 import { BlockExplorerLink } from "../blockchain/block-explorer-link"
@@ -37,7 +37,17 @@ export function PoolDetailsCard({
     chainId: CHAIN_ID,
   })
 
+  const {data: token0Symbol} = useErc20Symbol({
+    address: token0 as Address,
+    chainId: CHAIN_ID,
+  })
+
   const { data: token1Name } = useErc20Name({
+    address: token1 as Address,
+    chainId: CHAIN_ID,
+  })
+
+  const {data: token1Symbol} = useErc20Symbol({
     address: token1 as Address,
     chainId: CHAIN_ID,
   })
@@ -46,7 +56,7 @@ export function PoolDetailsCard({
     <Card className="flex flex-col gap-y-1 border-2 p-6  shadow-sm">
       <div>
         <div className="flex items-center gap-x-4">
-          <h2 className="font-semibold">token/token Pool</h2>
+          <h2 className="font-semibold">{token0Symbol}/{token1Symbol} Pool</h2>
           <BlockExplorerLink
             blockExplorerUrl="https://goerli.etherscan.io/"
             address={address as `0x${string}`}
