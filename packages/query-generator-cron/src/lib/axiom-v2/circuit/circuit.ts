@@ -40,6 +40,9 @@ export const myCircuitFn: MyCircuitCode = async (
   //
   const { poolBlockNumber, poolAddress } = myInputs;
 
+  // Uniswap V3 Pool Slot0 slot
+  const slot0Slot = constant(0);
+
   // Uniswap V3 Pool Observations slot
   const observationsSlot = constant(8);
 
@@ -47,14 +50,13 @@ export const myCircuitFn: MyCircuitCode = async (
   const storage = getStorage(poolBlockNumber, poolAddress);
 
   // access the value at storage slot `observationsSlot`
-  const slotValue = storage.slot(observationsSlot);
+  const observationsSlotValue = storage.slot(observationsSlot);
+  const slot0SlotValue = storage.slot(slot0Slot);
 
   addToCallback(poolAddress);
   addToCallback(poolBlockNumber);
-  addToCallback(slotValue);
+  addToCallback(observationsSlotValue);
   addToCallback(observationsSlot);
-
-  // If I wanted to do additional computations on the results I got above, I'd do it here.
-
-  // This is the end of the circuit!
+  addToCallback(slot0SlotValue);
+  addToCallback(slot0Slot);
 };
