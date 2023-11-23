@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
+    "codegen": "graphql-codegen",
     "build": "next build",
     "export": "next export",
     "start": "next start",
@@ -44,6 +45,7 @@
     "@rainbow-me/rainbowkit": "1.0.1",
     "@t3-oss/env-nextjs": "^0.4.0",
     "@tanstack/react-query": "^5.8.4",
+    "@thanpolas/univ3prices": "^3.0.2",
     "axios": "^1.2.2",
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
@@ -112,6 +114,7 @@
     "postcss": "^8.4.19",
     "prettier": "^2.8.1",
     "prettier-plugin-tailwindcss": "^0.2.0",
-    "typescript": "5.0.4"
+    "typescript": "5.0.4",
+    "univ3prices": "link:@types/@thanpolas/univ3prices"
   }
 }

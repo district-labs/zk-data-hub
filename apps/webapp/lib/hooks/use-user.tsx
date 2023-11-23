@@ -1,8 +1,8 @@
 "use client"
 
-import { useQuery } from "@tanstack/react-query"
-import { useRouter } from "next/navigation"
 import { useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { useQuery } from "@tanstack/react-query"
 
 interface User {
   isLoggedIn: boolean
@@ -11,7 +11,7 @@ interface User {
 }
 
 export function useUser({ redirectTo = "", redirectIfFound = false } = {}) {
-  const { data: user, refetch: mutateUser } = useQuery<User>( {
+  const { data: user, refetch: mutateUser } = useQuery<User>({
     queryKey: ["user"],
     queryFn: () => fetch("/api/app/user").then((res) => res.json()),
   })

@@ -1,6 +1,7 @@
 /* eslint-disable */
-import * as types from './graphql';
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import { TypedDocumentNode as DocumentNode } from "@graphql-typed-document-node/core"
+
+import * as types from "./graphql"
 
 /**
  * Map of all GraphQL operations in the project.
@@ -13,8 +14,11 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "\n  query getPools {\n    uniswapV3Pools {\n      id\n      token0\n      token1\n      fee\n      blocks {\n        block {\n          id\n          timestamp\n        }\n      }\n    }\n  }\n": types.GetPoolsDocument,
-};
+  "\n  query getPools {\n    uniswapV3Pools {\n      id\n      token0\n      token1\n      fee\n      blocks {\n        block {\n          id\n          timestamp\n        }\n      }\n    }\n  }\n":
+    types.GetPoolsDocument,
+  "\n  query getPoolInfo($poolId: String!) {\n    uniswapV3Pool(id: $poolId) {\n      id\n      token0\n      token1\n      fee\n      blocks {\n        block {\n          id\n          timestamp\n        }\n      }\n    }\n  }\n":
+    types.GetPoolInfoDocument,
+}
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -28,15 +32,24 @@ const documents = {
  * The query argument is unknown!
  * Please regenerate the types.
  */
-export function graphql(source: string): unknown;
+export function graphql(source: string): unknown
 
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query getPools {\n    uniswapV3Pools {\n      id\n      token0\n      token1\n      fee\n      blocks {\n        block {\n          id\n          timestamp\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  query getPools {\n    uniswapV3Pools {\n      id\n      token0\n      token1\n      fee\n      blocks {\n        block {\n          id\n          timestamp\n        }\n      }\n    }\n  }\n"];
+export function graphql(
+  source: "\n  query getPools {\n    uniswapV3Pools {\n      id\n      token0\n      token1\n      fee\n      blocks {\n        block {\n          id\n          timestamp\n        }\n      }\n    }\n  }\n"
+): (typeof documents)["\n  query getPools {\n    uniswapV3Pools {\n      id\n      token0\n      token1\n      fee\n      blocks {\n        block {\n          id\n          timestamp\n        }\n      }\n    }\n  }\n"]
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(
+  source: "\n  query getPoolInfo($poolId: String!) {\n    uniswapV3Pool(id: $poolId) {\n      id\n      token0\n      token1\n      fee\n      blocks {\n        block {\n          id\n          timestamp\n        }\n      }\n    }\n  }\n"
+): (typeof documents)["\n  query getPoolInfo($poolId: String!) {\n    uniswapV3Pool(id: $poolId) {\n      id\n      token0\n      token1\n      fee\n      blocks {\n        block {\n          id\n          timestamp\n        }\n      }\n    }\n  }\n"]
 
 export function graphql(source: string) {
-  return (documents as any)[source] ?? {};
+  return (documents as any)[source] ?? {}
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
+  TDocumentNode extends DocumentNode<infer TType, any> ? TType : never

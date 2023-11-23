@@ -3,7 +3,7 @@
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 import { env } from "@/env.mjs"
 import { Chain, ChainProviderFn, configureChains } from "wagmi"
-import { goerli as goerliNoIcon, mainnet } from "wagmi/chains"
+import { goerli as goerliNoIcon } from "wagmi/chains"
 import { alchemyProvider } from "wagmi/providers/alchemy"
 import { publicProvider } from "wagmi/providers/public"
 
@@ -12,16 +12,7 @@ const goerli = {
   iconUrl: "/icons/NetworkEthereumTest.svg",
 }
 
-export const ETH_CHAINS_TEST = [goerli]
-
-export const ETH_CHAINS_PROD = [mainnet]
-export const ETH_CHAINS_DEV =
-  env.NEXT_PUBLIC_PROD_NETWORKS_DEV === "true"
-    ? [...ETH_CHAINS_PROD, ...ETH_CHAINS_TEST]
-    : [...ETH_CHAINS_TEST]
-
-export const CHAINS: Chain[] =
-  process.env.NODE_ENV === "production" ? ETH_CHAINS_PROD : ETH_CHAINS_DEV
+export const CHAINS: Chain[] = [goerli]
 
 const PROVIDERS: ChainProviderFn<Chain>[] = []
 
@@ -34,7 +25,6 @@ if (env.NEXT_PUBLIC_ALCHEMY_API_KEY) {
     })
   )
 }
-
 
 // Fallback to public provider
 // Only include public provider if no other providers are available.

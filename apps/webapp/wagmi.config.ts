@@ -1,5 +1,5 @@
 import { defineConfig } from "@wagmi/cli"
-import { react } from "@wagmi/cli/plugins"
+import { foundry, react } from "@wagmi/cli/plugins"
 import { erc20ABI } from "wagmi"
 
 export default defineConfig({
@@ -10,5 +10,11 @@ export default defineConfig({
       abi: erc20ABI,
     },
   ],
-  plugins: [react()],
+  plugins: [
+    react(),
+    foundry({
+      project: "../../packages/contracts",
+      include: ["UniswapV3TwapOracle.json"],
+    }),
+  ],
 })

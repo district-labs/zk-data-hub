@@ -1,5 +1,5 @@
-import { BrowserProvider } from "ethers"
 import { useMemo } from "react"
+import { BrowserProvider } from "ethers"
 import { useWalletClient, type WalletClient } from "wagmi"
 
 export function walletClientToSigner(walletClient: WalletClient) {

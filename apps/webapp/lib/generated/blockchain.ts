@@ -15,6 +15,307 @@ import {
 } from "wagmi/actions"
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// UniswapV3TwapOracle
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const uniswapV3TwapOracleABI = [
+  {
+    stateMutability: "nonpayable",
+    type: "constructor",
+    inputs: [
+      {
+        name: "_axiomV2QueryAddress",
+        internalType: "address",
+        type: "address",
+      },
+      {
+        name: "_callbackSourceChainId",
+        internalType: "uint64",
+        type: "uint64",
+      },
+      {
+        name: "_axiomCallbackQuerySchema",
+        internalType: "bytes32",
+        type: "bytes32",
+      },
+    ],
+  },
+  { type: "error", inputs: [], name: "InvalidObservationOrder" },
+  { type: "error", inputs: [], name: "InvalidObservationsSlot" },
+  { type: "error", inputs: [], name: "InvalidObservationsSlotValue" },
+  { type: "error", inputs: [], name: "InvalidSlot0Slot" },
+  { type: "error", inputs: [], name: "InvalidSlot0SlotValue" },
+  {
+    type: "error",
+    inputs: [
+      { name: "pool", internalType: "address", type: "address" },
+      { name: "blockNumber", internalType: "uint256", type: "uint256" },
+    ],
+    name: "ObservationAlreadyStored",
+  },
+  {
+    type: "error",
+    inputs: [
+      { name: "pool", internalType: "address", type: "address" },
+      { name: "blockNumber", internalType: "uint256", type: "uint256" },
+    ],
+    name: "ObservationNotStored",
+  },
+  {
+    type: "error",
+    inputs: [
+      { name: "pool", internalType: "address", type: "address" },
+      { name: "blockNumber", internalType: "uint256", type: "uint256" },
+    ],
+    name: "Slot0NotStored",
+  },
+  { type: "error", inputs: [], name: "T" },
+  { type: "error", inputs: [], name: "UnchangedCumulativeLiquidity" },
+  {
+    type: "event",
+    anonymous: false,
+    inputs: [
+      {
+        name: "sourceChainId",
+        internalType: "uint64",
+        type: "uint64",
+        indexed: true,
+      },
+      {
+        name: "callerAddr",
+        internalType: "address",
+        type: "address",
+        indexed: false,
+      },
+      {
+        name: "querySchema",
+        internalType: "bytes32",
+        type: "bytes32",
+        indexed: true,
+      },
+      {
+        name: "queryId",
+        internalType: "uint256",
+        type: "uint256",
+        indexed: true,
+      },
+      {
+        name: "axiomResults",
+        internalType: "bytes32[]",
+        type: "bytes32[]",
+        indexed: false,
+      },
+    ],
+    name: "AxiomV2Call",
+  },
+  {
+    type: "event",
+    anonymous: false,
+    inputs: [
+      { name: "pool", internalType: "address", type: "address", indexed: true },
+      {
+        name: "blockNumber",
+        internalType: "uint256",
+        type: "uint256",
+        indexed: true,
+      },
+    ],
+    name: "ObservationStored",
+  },
+  {
+    stateMutability: "view",
+    type: "function",
+    inputs: [],
+    name: "axiomCallbackQuerySchema",
+    outputs: [{ name: "", internalType: "bytes32", type: "bytes32" }],
+  },
+  {
+    stateMutability: "nonpayable",
+    type: "function",
+    inputs: [
+      { name: "sourceChainId", internalType: "uint64", type: "uint64" },
+      { name: "callerAddr", internalType: "address", type: "address" },
+      { name: "querySchema", internalType: "bytes32", type: "bytes32" },
+      { name: "queryId", internalType: "uint256", type: "uint256" },
+      { name: "axiomResults", internalType: "bytes32[]", type: "bytes32[]" },
+      { name: "callbackExtraData", internalType: "bytes", type: "bytes" },
+    ],
+    name: "axiomV2Callback",
+    outputs: [],
+  },
+  {
+    stateMutability: "view",
+    type: "function",
+    inputs: [],
+    name: "axiomV2QueryAddress",
+    outputs: [{ name: "", internalType: "address", type: "address" }],
+  },
+  {
+    stateMutability: "view",
+    type: "function",
+    inputs: [],
+    name: "callbackSourceChainId",
+    outputs: [{ name: "", internalType: "uint64", type: "uint64" }],
+  },
+  {
+    stateMutability: "view",
+    type: "function",
+    inputs: [
+      { name: "poolAddress", internalType: "address", type: "address" },
+      { name: "blockNumber", internalType: "uint256", type: "uint256" },
+    ],
+    name: "getObservation",
+    outputs: [
+      {
+        name: "observation",
+        internalType: "struct Oracle.Observation",
+        type: "tuple",
+        components: [
+          { name: "blockTimestamp", internalType: "uint32", type: "uint32" },
+          { name: "tickCumulative", internalType: "int56", type: "int56" },
+          {
+            name: "secondsPerLiquidityCumulativeX128",
+            internalType: "uint160",
+            type: "uint160",
+          },
+          { name: "initialized", internalType: "bool", type: "bool" },
+        ],
+      },
+    ],
+  },
+  {
+    stateMutability: "view",
+    type: "function",
+    inputs: [
+      { name: "poolAddress", internalType: "address", type: "address" },
+      { name: "blockNumber", internalType: "uint256", type: "uint256" },
+    ],
+    name: "getSlot0",
+    outputs: [
+      {
+        name: "slot0",
+        internalType: "struct UniswapV3Pool.Slot0",
+        type: "tuple",
+        components: [
+          { name: "sqrtPriceX96", internalType: "uint160", type: "uint160" },
+          { name: "tick", internalType: "int24", type: "int24" },
+          { name: "observationIndex", internalType: "uint16", type: "uint16" },
+          {
+            name: "observationCardinality",
+            internalType: "uint16",
+            type: "uint16",
+          },
+          {
+            name: "observationCardinalityNext",
+            internalType: "uint16",
+            type: "uint16",
+          },
+          { name: "feeProtocol", internalType: "uint8", type: "uint8" },
+          { name: "unlocked", internalType: "bool", type: "bool" },
+        ],
+      },
+    ],
+  },
+  {
+    stateMutability: "view",
+    type: "function",
+    inputs: [
+      { name: "poolAddress", internalType: "address", type: "address" },
+      { name: "startBlockNumber", internalType: "uint256", type: "uint256" },
+      { name: "endBlockNumber", internalType: "uint256", type: "uint256" },
+    ],
+    name: "getTwaLiquidity",
+    outputs: [
+      { name: "twaLiquidity", internalType: "uint160", type: "uint160" },
+      {
+        name: "startObservation",
+        internalType: "struct Oracle.Observation",
+        type: "tuple",
+        components: [
+          { name: "blockTimestamp", internalType: "uint32", type: "uint32" },
+          { name: "tickCumulative", internalType: "int56", type: "int56" },
+          {
+            name: "secondsPerLiquidityCumulativeX128",
+            internalType: "uint160",
+            type: "uint160",
+          },
+          { name: "initialized", internalType: "bool", type: "bool" },
+        ],
+      },
+      {
+        name: "endObservation",
+        internalType: "struct Oracle.Observation",
+        type: "tuple",
+        components: [
+          { name: "blockTimestamp", internalType: "uint32", type: "uint32" },
+          { name: "tickCumulative", internalType: "int56", type: "int56" },
+          {
+            name: "secondsPerLiquidityCumulativeX128",
+            internalType: "uint160",
+            type: "uint160",
+          },
+          { name: "initialized", internalType: "bool", type: "bool" },
+        ],
+      },
+    ],
+  },
+  {
+    stateMutability: "view",
+    type: "function",
+    inputs: [
+      { name: "poolAddress", internalType: "address", type: "address" },
+      { name: "startBlockNumber", internalType: "uint256", type: "uint256" },
+      { name: "endBlockNumber", internalType: "uint256", type: "uint256" },
+    ],
+    name: "getTwaSqrtPriceX96",
+    outputs: [
+      { name: "sqrtPriceX96", internalType: "uint160", type: "uint160" },
+      {
+        name: "startObservation",
+        internalType: "struct Oracle.Observation",
+        type: "tuple",
+        components: [
+          { name: "blockTimestamp", internalType: "uint32", type: "uint32" },
+          { name: "tickCumulative", internalType: "int56", type: "int56" },
+          {
+            name: "secondsPerLiquidityCumulativeX128",
+            internalType: "uint160",
+            type: "uint160",
+          },
+          { name: "initialized", internalType: "bool", type: "bool" },
+        ],
+      },
+      {
+        name: "endObservation",
+        internalType: "struct Oracle.Observation",
+        type: "tuple",
+        components: [
+          { name: "blockTimestamp", internalType: "uint32", type: "uint32" },
+          { name: "tickCumulative", internalType: "int56", type: "int56" },
+          {
+            name: "secondsPerLiquidityCumulativeX128",
+            internalType: "uint160",
+            type: "uint160",
+          },
+          { name: "initialized", internalType: "bool", type: "bool" },
+        ],
+      },
+    ],
+  },
+  {
+    stateMutability: "view",
+    type: "function",
+    inputs: [
+      { name: "poolAddress", internalType: "address", type: "address" },
+      { name: "blockNumber", internalType: "uint256", type: "uint256" },
+      { name: "slot", internalType: "uint256", type: "uint256" },
+    ],
+    name: "poolStorageSlots",
+    outputs: [{ name: "slotValue", internalType: "uint256", type: "uint256" }],
+  },
+] as const
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // erc20
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -118,6 +419,405 @@ export const erc20ABI = [
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // React
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link uniswapV3TwapOracleABI}__.
+ */
+export function useUniswapV3TwapOracleRead<
+  TFunctionName extends string,
+  TSelectData = ReadContractResult<typeof uniswapV3TwapOracleABI, TFunctionName>
+>(
+  config: Omit<
+    UseContractReadConfig<
+      typeof uniswapV3TwapOracleABI,
+      TFunctionName,
+      TSelectData
+    >,
+    "abi"
+  > = {} as any
+) {
+  return useContractRead({
+    abi: uniswapV3TwapOracleABI,
+    ...config,
+  } as UseContractReadConfig<
+    typeof uniswapV3TwapOracleABI,
+    TFunctionName,
+    TSelectData
+  >)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link uniswapV3TwapOracleABI}__ and `functionName` set to `"axiomCallbackQuerySchema"`.
+ */
+export function useUniswapV3TwapOracleAxiomCallbackQuerySchema<
+  TFunctionName extends "axiomCallbackQuerySchema",
+  TSelectData = ReadContractResult<typeof uniswapV3TwapOracleABI, TFunctionName>
+>(
+  config: Omit<
+    UseContractReadConfig<
+      typeof uniswapV3TwapOracleABI,
+      TFunctionName,
+      TSelectData
+    >,
+    "abi" | "functionName"
+  > = {} as any
+) {
+  return useContractRead({
+    abi: uniswapV3TwapOracleABI,
+    functionName: "axiomCallbackQuerySchema",
+    ...config,
+  } as UseContractReadConfig<
+    typeof uniswapV3TwapOracleABI,
+    TFunctionName,
+    TSelectData
+  >)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link uniswapV3TwapOracleABI}__ and `functionName` set to `"axiomV2QueryAddress"`.
+ */
+export function useUniswapV3TwapOracleAxiomV2QueryAddress<
+  TFunctionName extends "axiomV2QueryAddress",
+  TSelectData = ReadContractResult<typeof uniswapV3TwapOracleABI, TFunctionName>
+>(
+  config: Omit<
+    UseContractReadConfig<
+      typeof uniswapV3TwapOracleABI,
+      TFunctionName,
+      TSelectData
+    >,
+    "abi" | "functionName"
+  > = {} as any
+) {
+  return useContractRead({
+    abi: uniswapV3TwapOracleABI,
+    functionName: "axiomV2QueryAddress",
+    ...config,
+  } as UseContractReadConfig<
+    typeof uniswapV3TwapOracleABI,
+    TFunctionName,
+    TSelectData
+  >)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link uniswapV3TwapOracleABI}__ and `functionName` set to `"callbackSourceChainId"`.
+ */
+export function useUniswapV3TwapOracleCallbackSourceChainId<
+  TFunctionName extends "callbackSourceChainId",
+  TSelectData = ReadContractResult<typeof uniswapV3TwapOracleABI, TFunctionName>
+>(
+  config: Omit<
+    UseContractReadConfig<
+      typeof uniswapV3TwapOracleABI,
+      TFunctionName,
+      TSelectData
+    >,
+    "abi" | "functionName"
+  > = {} as any
+) {
+  return useContractRead({
+    abi: uniswapV3TwapOracleABI,
+    functionName: "callbackSourceChainId",
+    ...config,
+  } as UseContractReadConfig<
+    typeof uniswapV3TwapOracleABI,
+    TFunctionName,
+    TSelectData
+  >)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link uniswapV3TwapOracleABI}__ and `functionName` set to `"getObservation"`.
+ */
+export function useUniswapV3TwapOracleGetObservation<
+  TFunctionName extends "getObservation",
+  TSelectData = ReadContractResult<typeof uniswapV3TwapOracleABI, TFunctionName>
+>(
+  config: Omit<
+    UseContractReadConfig<
+      typeof uniswapV3TwapOracleABI,
+      TFunctionName,
+      TSelectData
+    >,
+    "abi" | "functionName"
+  > = {} as any
+) {
+  return useContractRead({
+    abi: uniswapV3TwapOracleABI,
+    functionName: "getObservation",
+    ...config,
+  } as UseContractReadConfig<
+    typeof uniswapV3TwapOracleABI,
+    TFunctionName,
+    TSelectData
+  >)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link uniswapV3TwapOracleABI}__ and `functionName` set to `"getSlot0"`.
+ */
+export function useUniswapV3TwapOracleGetSlot0<
+  TFunctionName extends "getSlot0",
+  TSelectData = ReadContractResult<typeof uniswapV3TwapOracleABI, TFunctionName>
+>(
+  config: Omit<
+    UseContractReadConfig<
+      typeof uniswapV3TwapOracleABI,
+      TFunctionName,
+      TSelectData
+    >,
+    "abi" | "functionName"
+  > = {} as any
+) {
+  return useContractRead({
+    abi: uniswapV3TwapOracleABI,
+    functionName: "getSlot0",
+    ...config,
+  } as UseContractReadConfig<
+    typeof uniswapV3TwapOracleABI,
+    TFunctionName,
+    TSelectData
+  >)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link uniswapV3TwapOracleABI}__ and `functionName` set to `"getTwaLiquidity"`.
+ */
+export function useUniswapV3TwapOracleGetTwaLiquidity<
+  TFunctionName extends "getTwaLiquidity",
+  TSelectData = ReadContractResult<typeof uniswapV3TwapOracleABI, TFunctionName>
+>(
+  config: Omit<
+    UseContractReadConfig<
+      typeof uniswapV3TwapOracleABI,
+      TFunctionName,
+      TSelectData
+    >,
+    "abi" | "functionName"
+  > = {} as any
+) {
+  return useContractRead({
+    abi: uniswapV3TwapOracleABI,
+    functionName: "getTwaLiquidity",
+    ...config,
+  } as UseContractReadConfig<
+    typeof uniswapV3TwapOracleABI,
+    TFunctionName,
+    TSelectData
+  >)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link uniswapV3TwapOracleABI}__ and `functionName` set to `"getTwaSqrtPriceX96"`.
+ */
+export function useUniswapV3TwapOracleGetTwaSqrtPriceX96<
+  TFunctionName extends "getTwaSqrtPriceX96",
+  TSelectData = ReadContractResult<typeof uniswapV3TwapOracleABI, TFunctionName>
+>(
+  config: Omit<
+    UseContractReadConfig<
+      typeof uniswapV3TwapOracleABI,
+      TFunctionName,
+      TSelectData
+    >,
+    "abi" | "functionName"
+  > = {} as any
+) {
+  return useContractRead({
+    abi: uniswapV3TwapOracleABI,
+    functionName: "getTwaSqrtPriceX96",
+    ...config,
+  } as UseContractReadConfig<
+    typeof uniswapV3TwapOracleABI,
+    TFunctionName,
+    TSelectData
+  >)
+}
+
+/**
+ * Wraps __{@link useContractRead}__ with `abi` set to __{@link uniswapV3TwapOracleABI}__ and `functionName` set to `"poolStorageSlots"`.
+ */
+export function useUniswapV3TwapOraclePoolStorageSlots<
+  TFunctionName extends "poolStorageSlots",
+  TSelectData = ReadContractResult<typeof uniswapV3TwapOracleABI, TFunctionName>
+>(
+  config: Omit<
+    UseContractReadConfig<
+      typeof uniswapV3TwapOracleABI,
+      TFunctionName,
+      TSelectData
+    >,
+    "abi" | "functionName"
+  > = {} as any
+) {
+  return useContractRead({
+    abi: uniswapV3TwapOracleABI,
+    functionName: "poolStorageSlots",
+    ...config,
+  } as UseContractReadConfig<
+    typeof uniswapV3TwapOracleABI,
+    TFunctionName,
+    TSelectData
+  >)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link uniswapV3TwapOracleABI}__.
+ */
+export function useUniswapV3TwapOracleWrite<
+  TFunctionName extends string,
+  TMode extends WriteContractMode = undefined
+>(
+  config: TMode extends "prepared"
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof uniswapV3TwapOracleABI,
+          string
+        >["request"]["abi"],
+        TFunctionName,
+        TMode
+      >
+    : UseContractWriteConfig<
+        typeof uniswapV3TwapOracleABI,
+        TFunctionName,
+        TMode
+      > & {
+        abi?: never
+      } = {} as any
+) {
+  return useContractWrite<typeof uniswapV3TwapOracleABI, TFunctionName, TMode>({
+    abi: uniswapV3TwapOracleABI,
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link useContractWrite}__ with `abi` set to __{@link uniswapV3TwapOracleABI}__ and `functionName` set to `"axiomV2Callback"`.
+ */
+export function useUniswapV3TwapOracleAxiomV2Callback<
+  TMode extends WriteContractMode = undefined
+>(
+  config: TMode extends "prepared"
+    ? UseContractWriteConfig<
+        PrepareWriteContractResult<
+          typeof uniswapV3TwapOracleABI,
+          "axiomV2Callback"
+        >["request"]["abi"],
+        "axiomV2Callback",
+        TMode
+      > & { functionName?: "axiomV2Callback" }
+    : UseContractWriteConfig<
+        typeof uniswapV3TwapOracleABI,
+        "axiomV2Callback",
+        TMode
+      > & {
+        abi?: never
+        functionName?: "axiomV2Callback"
+      } = {} as any
+) {
+  return useContractWrite<
+    typeof uniswapV3TwapOracleABI,
+    "axiomV2Callback",
+    TMode
+  >({
+    abi: uniswapV3TwapOracleABI,
+    functionName: "axiomV2Callback",
+    ...config,
+  } as any)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link uniswapV3TwapOracleABI}__.
+ */
+export function usePrepareUniswapV3TwapOracleWrite<
+  TFunctionName extends string
+>(
+  config: Omit<
+    UsePrepareContractWriteConfig<typeof uniswapV3TwapOracleABI, TFunctionName>,
+    "abi"
+  > = {} as any
+) {
+  return usePrepareContractWrite({
+    abi: uniswapV3TwapOracleABI,
+    ...config,
+  } as UsePrepareContractWriteConfig<
+    typeof uniswapV3TwapOracleABI,
+    TFunctionName
+  >)
+}
+
+/**
+ * Wraps __{@link usePrepareContractWrite}__ with `abi` set to __{@link uniswapV3TwapOracleABI}__ and `functionName` set to `"axiomV2Callback"`.
+ */
+export function usePrepareUniswapV3TwapOracleAxiomV2Callback(
+  config: Omit<
+    UsePrepareContractWriteConfig<
+      typeof uniswapV3TwapOracleABI,
+      "axiomV2Callback"
+    >,
+    "abi" | "functionName"
+  > = {} as any
+) {
+  return usePrepareContractWrite({
+    abi: uniswapV3TwapOracleABI,
+    functionName: "axiomV2Callback",
+    ...config,
+  } as UsePrepareContractWriteConfig<
+    typeof uniswapV3TwapOracleABI,
+    "axiomV2Callback"
+  >)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link uniswapV3TwapOracleABI}__.
+ */
+export function useUniswapV3TwapOracleEvent<TEventName extends string>(
+  config: Omit<
+    UseContractEventConfig<typeof uniswapV3TwapOracleABI, TEventName>,
+    "abi"
+  > = {} as any
+) {
+  return useContractEvent({
+    abi: uniswapV3TwapOracleABI,
+    ...config,
+  } as UseContractEventConfig<typeof uniswapV3TwapOracleABI, TEventName>)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link uniswapV3TwapOracleABI}__ and `eventName` set to `"AxiomV2Call"`.
+ */
+export function useUniswapV3TwapOracleAxiomV2CallEvent(
+  config: Omit<
+    UseContractEventConfig<typeof uniswapV3TwapOracleABI, "AxiomV2Call">,
+    "abi" | "eventName"
+  > = {} as any
+) {
+  return useContractEvent({
+    abi: uniswapV3TwapOracleABI,
+    eventName: "AxiomV2Call",
+    ...config,
+  } as UseContractEventConfig<typeof uniswapV3TwapOracleABI, "AxiomV2Call">)
+}
+
+/**
+ * Wraps __{@link useContractEvent}__ with `abi` set to __{@link uniswapV3TwapOracleABI}__ and `eventName` set to `"ObservationStored"`.
+ */
+export function useUniswapV3TwapOracleObservationStoredEvent(
+  config: Omit<
+    UseContractEventConfig<typeof uniswapV3TwapOracleABI, "ObservationStored">,
+    "abi" | "eventName"
+  > = {} as any
+) {
+  return useContractEvent({
+    abi: uniswapV3TwapOracleABI,
+    eventName: "ObservationStored",
+    ...config,
+  } as UseContractEventConfig<
+    typeof uniswapV3TwapOracleABI,
+    "ObservationStored"
+  >)
+}
 
 /**
  * Wraps __{@link useContractRead}__ with `abi` set to __{@link erc20ABI}__.
