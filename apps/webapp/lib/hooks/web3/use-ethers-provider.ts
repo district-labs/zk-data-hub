@@ -1,5 +1,5 @@
-import { FallbackProvider, JsonRpcProvider } from "ethers"
 import { useMemo } from "react"
+import { FallbackProvider, JsonRpcProvider } from "ethers"
 import { type HttpTransport } from "viem"
 import { usePublicClient, type PublicClient } from "wagmi"
 

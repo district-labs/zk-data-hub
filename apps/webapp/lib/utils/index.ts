@@ -1,4 +1,6 @@
 import { env } from "@/env.mjs"
+// @ts-ignore
+import univ3prices from "@thanpolas/univ3prices"
 import { ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -6,15 +8,19 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatDate(input: string | number): string {
-  const date = new Date(input)
-  return date.toLocaleDateString("en-US", {
-    month: "long",
+export function formatDate(
+  input: string | number,
+  options: Intl.DateTimeFormatOptions = {
+    minute: "2-digit",
+    hour: "2-digit",
+    month: "short",
     day: "numeric",
     year: "numeric",
-  })
+  }
+): string {
+  const date = new Date(input)
+  return date.toLocaleDateString("en-US", options)
 }
-
 export function absoluteUrl(path: string) {
   return `${env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}${path}`
 }
@@ -35,4 +41,22 @@ export function trimFormattedBalance(
 
 export function truncateEthAddress(address: string) {
   return `${address.slice(0, 6)}...${address.slice(-4)}`
+}
+
+export function formatUniV3sqrtPriceX96(
+  token0Decimals: number | undefined,
+  token1Decimals: number | undefined,
+  sqrtPriceX96: bigint | undefined
+) {
+  if (!token0Decimals || !token1Decimals || !sqrtPriceX96) return "0"
+
+  // eslint-disable-next-line
+  const price: string = univ3prices(
+    [token0Decimals, token1Decimals],
+    sqrtPriceX96.toString()
+  ).toSignificant({
+    decimalPlaces: 2,
+  })
+
+  return price
 }

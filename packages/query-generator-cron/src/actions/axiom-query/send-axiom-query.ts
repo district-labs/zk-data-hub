@@ -1,6 +1,6 @@
 import { createPublicClient, http } from "viem";
 import { goerli } from "viem/chains";
-import { CALLBACK_ADDR, UNI_V3_TEST_POOLS } from "../../constants";
+import { UNI_V3_TEST_POOLS } from "../../constants";
 import { env } from "../../env";
 import { axiomMain } from "../../lib/axiom-v2";
 
@@ -17,9 +17,9 @@ export async function sendAxiomQuery() {
       await axiomMain(
         {
           poolBlockNumber: Number(blockNumber),
-          poolAddress: UNI_V3_TEST_POOLS[i],
+          poolAddress: UNI_V3_TEST_POOLS[i] as string,
         },
-        CALLBACK_ADDR,
+        env.CALLBACK_ADDRESS,
       );
     }
   } catch (error) {

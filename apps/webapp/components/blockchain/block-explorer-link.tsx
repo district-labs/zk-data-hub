@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils"
 interface BlockExplorerLinkProps extends HTMLAttributes<HTMLSpanElement> {
   address: Address | undefined
   showExplorerName?: boolean
+  blockExplorerUrl?: string
   type?: "address" | "tx"
 }
 
@@ -13,6 +14,7 @@ export const BlockExplorerLink = ({
   address,
   children,
   className,
+  blockExplorerUrl,
   showExplorerName,
   type = "address",
   ...props
@@ -29,7 +31,7 @@ export const BlockExplorerLink = ({
     >
       {blockExplorer && (
         <a
-          href={`${blockExplorer.url}/${type}/${address}`}
+          href={`${blockExplorerUrl ?? blockExplorer.url}/${type}/${address}`}
           rel="noreferrer"
           target="_blank"
         >
