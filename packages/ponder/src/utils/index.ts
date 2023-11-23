@@ -1,7 +1,10 @@
 import type { Address, PublicClient } from "viem";
 import { uniswapV3PoolABI } from "../abis/UniswapV3Pool";
 
-export async function getPoolInfo(poolAddress: Address, publicClient: PublicClient) {
+export async function getPoolInfo(
+  poolAddress: Address,
+  publicClient: PublicClient,
+) {
   try {
     const [fee, token0, token1] = await Promise.all([
       publicClient.readContract({
