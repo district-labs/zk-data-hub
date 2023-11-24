@@ -84,13 +84,13 @@ export function CalculatePoolPriceDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Calculate Average Price</Button>
+        <Button className="h-12 sm:h-10">Calculate Average Price</Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="w-[90%] sm:w-full">
         <DialogTitle>
           Select two blocks to calculate the average price
         </DialogTitle>
-        <div className="mb-1 flex items-center justify-between gap-x-8 pt-2">
+        <div className="mb-1 flex flex-col items-center justify-between gap-x-8 gap-y-4 pt-2 sm:flex-row">
           <Select
             onValueChange={(value) => setStartBlock(Number(value))}
             value={startBlock?.toString()}

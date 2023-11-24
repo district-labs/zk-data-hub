@@ -31,7 +31,7 @@ export default function PoolPage({ params }: PoolPageProps) {
   }
 
   return (
-    <div className="container relative mt-12 px-0">
+    <div className="container relative mt-12 px-6 sm:px-10">
       {isLoading ? (
         <Skeleton className="h-52 w-full" />
       ) : (
@@ -49,7 +49,7 @@ export default function PoolPage({ params }: PoolPageProps) {
           />
         )
       )}
-      <div className="mt-6 grid grid-cols-4 gap-5">
+      <div className="mt-6 grid grid-cols-1 gap-5  sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
         {isLoading ? (
           Array(12)
             .fill(null)
