@@ -6,7 +6,6 @@ import { ThemeProvider } from "next-themes"
 import { Provider as RWBProvider } from "react-wrap-balancer"
 
 import { useIsMounted } from "@/lib/hooks/use-is-mounted"
-import HandleWalletEvents from "@/components/blockchain/handle-wallet-events"
 import { RainbowKit } from "@/components/providers/rainbow-kit"
 
 const queryClient = new QueryClient()
@@ -25,9 +24,7 @@ export default function RootProvider({ children }: RootProviderProps) {
     >
       <QueryClientProvider client={queryClient}>
         <RWBProvider>
-          <RainbowKit>
-            <HandleWalletEvents>{children}</HandleWalletEvents>
-          </RainbowKit>
+          <RainbowKit>{children}</RainbowKit>
         </RWBProvider>
       </QueryClientProvider>
     </ThemeProvider>
