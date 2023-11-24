@@ -23,7 +23,7 @@ export default function HomePage() {
 
   return (
     <div className="container mt-12 px-0">
-      <div className="grid grid-cols-1 gap-5 px-12 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-5 px-6 sm:grid-cols-2 sm:px-10 md:grid-cols-3 xl:grid-cols-4">
         {isError ? (
           <div className="text-red-500">{error.message}</div>
         ) : isLoading ? (
