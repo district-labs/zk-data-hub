@@ -74,12 +74,6 @@ The [ui.shadcn.com](https://ui.shadcn.com) components are included in the `/comp
 
 # 💻 Developer Experience
 
-### 🐕 What is husky
-
-Husky improves your git commits.
-
-You can use it to lint your commit messages, run tests, lint code, etc... when you commit or push. Husky supports all Git hooks.
-
 #### 🪝 Hooks
 
 - pre-commit: lint app codebase

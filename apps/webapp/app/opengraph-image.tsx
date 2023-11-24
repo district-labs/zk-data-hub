@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site"
 
 export const runtime = "edge"
 
-export const alt = "TurboETH Logo"
+export const alt = `${siteConfig.name} Logo`
 export const size = {
   width: 1200,
   height: 630,
@@ -29,7 +29,7 @@ export default async function Image() {
         }}
       >
         <img
-          alt="TurboETH Logo"
+          alt={alt}
           src={new URL(
             "../public/logo-gradient.png",
             import.meta.url

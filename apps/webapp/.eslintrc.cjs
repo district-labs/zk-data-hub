@@ -8,7 +8,7 @@ module.exports = {
     "plugin:tailwindcss/recommended",
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
   ],
-  plugins: ["@typescript-eslint", "tailwindcss"],
+  plugins: ["@typescript-eslint", "tailwindcss", "prettier"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     project: "./tsconfig.json",
@@ -24,7 +24,7 @@ module.exports = {
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/no-unsafe-argument": "off",
-    "no-unused-vars": "off",
+    "no-unused-vars": "warn",
   },
   settings: {
     tailwindcss: {

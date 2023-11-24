@@ -3,6 +3,7 @@ import type { Address } from "viem"
 
 import {
   useErc20Decimals,
+  useErc20Symbol,
   useUniswapV3TwapOracleGetSlot0,
 } from "@/lib/generated/blockchain"
 import { formatDate, formatUniV3sqrtPriceX96 } from "@/lib/utils"
@@ -37,14 +38,23 @@ export function PoolObservationCard({
     address: token0 as Address,
   })
 
+  const { data: token0Symbol } = useErc20Symbol({
+    address: token0 as Address,
+    chainId: CHAIN_ID,
+  })
+
   const { data: token1Decimals } = useErc20Decimals({
     chainId: CHAIN_ID,
     address: token1 as Address,
   })
 
+  const { data: token1Symbol } = useErc20Symbol({
+    address: token1 as Address,
+    chainId: CHAIN_ID,
+  })
+
   return (
-    <Card className="flex flex-col gap-y-1 border-2 p-6 shadow-sm">
-      <h2 className="font-semibold">Block</h2>
+    <Card className="flex flex-col gap-y-2 border-2 p-6 shadow-sm">
       <p>
         Block Number: <span className="font-semibold">{blockNumber}</span>
       </p>
@@ -52,16 +62,29 @@ export function PoolObservationCard({
         Timestamp:{" "}
         <span className="font-semibold">{formatDate(timestamp * 1000)}</span>
       </p>
-      <p>
-        Price:{" "}
-        <span className="font-semibold">
-          {formatUniV3sqrtPriceX96(
-            token0Decimals,
-            token1Decimals,
-            data?.sqrtPriceX96
-          )}
-        </span>
-      </p>
+      {token0Symbol &&
+      token1Symbol &&
+      token0Decimals &&
+      token1Decimals &&
+      data?.sqrtPriceX96 ? (
+        <>
+          <p className="font-semibold">
+            {`1 ${token0Symbol} = ${formatUniV3sqrtPriceX96(
+              token0Decimals,
+              token1Decimals,
+              data?.sqrtPriceX96
+            ).toString()} ${token1Symbol}`}
+          </p>
+          <p className="font-semibold">
+            {`1 ${token1Symbol} = ${formatUniV3sqrtPriceX96(
+              token0Decimals,
+              token1Decimals,
+              data?.sqrtPriceX96,
+              true
+            ).toString()} ${token0Symbol}`}
+          </p>
+        </>
+      ) : null}
     </Card>
   )
 }

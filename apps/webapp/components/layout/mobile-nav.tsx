@@ -3,24 +3,11 @@
 import { useState } from "react"
 import Link, { LinkProps } from "next/link"
 import { useRouter } from "next/navigation"
-import {
-  integrationCategories,
-  turboIntegrations,
-} from "@/data/turbo-integrations"
 import { LuMenu } from "react-icons/lu"
 
-import { menuDashboard } from "@/config/menu-dashboard"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { LightDarkImage } from "@/components/shared/light-dark-image"
 
@@ -36,7 +23,7 @@ export function MobileNav() {
           <LightDarkImage
             LightImage="/logo-dark.png"
             DarkImage="/logo-light.png"
-            alt="TurboETH"
+            alt={siteConfig.name}
             className="rounded-full"
             height={32}
             width={32}
@@ -65,92 +52,13 @@ export function MobileNav() {
             <LightDarkImage
               LightImage="/logo-dark.png"
               DarkImage="/logo-light.png"
-              alt="TurboETH"
+              alt={siteConfig.name}
               height={32}
               width={32}
             />
           </MobileLink>
           <ModeToggle />
         </div>
-        <ScrollArea className="my-4 mr-4 h-[calc(100vh-8rem)] pb-10">
-          <div className="flex flex-col space-y-4">
-            <Accordion type="single" collapsible className="mx-auto w-full">
-              <AccordionItem value="integrations">
-                <AccordionTrigger className="text-base font-medium">
-                  Integrations
-                </AccordionTrigger>
-                <AccordionContent>
-                  <ul className="flex flex-col gap-2">
-                    {integrationCategories.map((category) => {
-                      const categoryIntegrations = Object.values(
-                        turboIntegrations
-                      ).filter(
-                        (integration) => integration.category === category
-                      )
-                      return (
-                        categoryIntegrations.length > 0 && (
-                          <>
-                            <h4 className="text-sm font-medium leading-none">
-                              {category.charAt(0).toUpperCase() +
-                                category.slice(1)}
-                            </h4>
-                            <Separator className="col-span-3" />
-                            {categoryIntegrations.map(
-                              ({ name, href, imgDark, imgLight }) => (
-                                <NavMenuListItem
-                                  key={name}
-                                  name={name}
-                                  href={href}
-                                  lightImage={imgDark}
-                                  darkImage={imgLight}
-                                  onOpenChange={setOpen}
-                                />
-                              )
-                            )}
-                          </>
-                        )
-                      )
-                    })}
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-              <AccordionItem value="dashboard">
-                <AccordionTrigger className="text-base font-medium">
-                  Dashboard
-                </AccordionTrigger>
-                <AccordionContent>
-                  <div className="flex flex-col space-y-2">
-                    {menuDashboard?.map((item, index) =>
-                      item.href ? (
-                        <Link
-                          key={index}
-                          href={item.href}
-                          onClick={() => setOpen(false)}
-                        >
-                          {item.label}
-                        </Link>
-                      ) : (
-                        <div
-                          key={index}
-                          className="text-muted-foreground/70 transition-colors"
-                        >
-                          {item.label}
-                        </div>
-                      )
-                    )}
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-            <Link
-              href="https://docs.turboeth.xyz/overview"
-              className="font-medium"
-            >
-              Documentation
-            </Link>
-            <Separator />
-          </div>
-        </ScrollArea>
       </SheetContent>
     </Sheet>
   )

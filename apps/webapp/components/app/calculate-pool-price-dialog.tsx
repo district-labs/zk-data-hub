@@ -4,6 +4,7 @@ import type { Address } from "viem"
 
 import {
   useErc20Decimals,
+  useErc20Symbol,
   useUniswapV3TwapOracleGetTwaSqrtPriceX96,
 } from "@/lib/generated/blockchain"
 import { formatDate, formatUniV3sqrtPriceX96 } from "@/lib/utils"
@@ -17,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select"
+import { Skeleton } from "../ui/skeleton"
 
 interface CalculatePoolPriceDialogProps {
   poolAddress: string
@@ -49,6 +51,16 @@ export function CalculatePoolPriceDialog({
     [blocks, startBlock]
   )
 
+  const { data: token0Symbol } = useErc20Symbol({
+    chainId: 5,
+    address: token0 as Address,
+  })
+
+  const { data: token1Symbol } = useErc20Symbol({
+    chainId: 5,
+    address: token1 as Address,
+  })
+
   const { data: token0Decimals } = useErc20Decimals({
     chainId: 5,
     address: token0 as Address,
@@ -59,7 +71,7 @@ export function CalculatePoolPriceDialog({
     address: token1 as Address,
   })
 
-  const { data, error } = useUniswapV3TwapOracleGetTwaSqrtPriceX96({
+  const { data, error, isLoading } = useUniswapV3TwapOracleGetTwaSqrtPriceX96({
     chainId: 5,
     address: env.NEXT_PUBLIC_UNI_V3_TWAP_ORACLE_ADDRESS as Address,
     args:
@@ -78,7 +90,7 @@ export function CalculatePoolPriceDialog({
         <DialogTitle>
           Select two blocks to calculate the average price
         </DialogTitle>
-        <div className="flex items-center justify-between gap-x-8 pt-2">
+        <div className="mb-1 flex items-center justify-between gap-x-8 pt-2">
           <Select
             onValueChange={(value) => setStartBlock(Number(value))}
             value={startBlock?.toString()}
@@ -93,12 +105,14 @@ export function CalculatePoolPriceDialog({
                   key={id}
                   value={id.toString()}
                 >
-                  <div> Block: {id}</div>
+                  <div>Block: {id}</div>
                   <div className="text-gray-400">
                     {formatDate(timestamp * 1000, {
                       year: "numeric",
-                      month: "long",
+                      month: "numeric",
                       day: "numeric",
+                      hour: "numeric",
+                      minute: "numeric",
                     })}
                   </div>
                 </SelectItem>
@@ -119,7 +133,7 @@ export function CalculatePoolPriceDialog({
                   key={id}
                   value={id.toString()}
                 >
-                  <div> Block: {id}</div>
+                  <div>Block: {id}</div>
                   <div className="text-gray-400">
                     {formatDate(timestamp * 1000, {
                       year: "numeric",
@@ -134,12 +148,31 @@ export function CalculatePoolPriceDialog({
             </SelectContent>
           </Select>
         </div>
-        {data && token0Decimals && token1Decimals && (
-          <div>
-            Pool Average Price:{" "}
-            {formatUniV3sqrtPriceX96(token0Decimals, token1Decimals, data[0])}
-          </div>
-        )}
+        {isLoading && <Skeleton className="h-16 w-full" />}
+        {data &&
+          token0Decimals &&
+          token1Decimals &&
+          token0Symbol &&
+          token1Symbol && (
+            <div className="flex w-full flex-col">
+              <span className="font-semibold">Pool Average Price:</span>
+              <p className="font-semibold">
+                {`1 ${token0Symbol} = ${formatUniV3sqrtPriceX96(
+                  token0Decimals,
+                  token1Decimals,
+                  data[0]
+                ).toString()} ${token1Symbol}`}
+              </p>
+              <p className="font-semibold">
+                {`1 ${token1Symbol} = ${formatUniV3sqrtPriceX96(
+                  token0Decimals,
+                  token1Decimals,
+                  data[0],
+                  true
+                ).toString()} ${token0Symbol}`}
+              </p>
+            </div>
+          )}
         {error && <div className="text-red-500">Error: {error.message}</div>}
       </DialogContent>
     </Dialog>

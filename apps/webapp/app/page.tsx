@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query"
 import request from "graphql-request"
 
 import { allPoolsWithBlocks } from "@/lib/ponder/queries/pools"
+import { Skeleton } from "@/components/ui/skeleton"
 import { PoolCard } from "@/components/app/pool-card"
 import { LinkComponent } from "@/components/shared/link-component"
 
@@ -12,6 +13,7 @@ export default function HomePage() {
   const {
     data: poolData,
     isLoading,
+    error,
     isError,
   } = useQuery({
     queryKey: ["allPoolsWithBlocks"],
@@ -20,11 +22,15 @@ export default function HomePage() {
   })
 
   return (
-    <div className="container relative mt-20 px-0">
-      <div className="grid grid-cols-4 gap-5 px-12">
-        {isLoading ? (
-          <div className="p-6">Loading...</div>
-        ) : poolData?.uniswapV3Pools && poolData?.uniswapV3Pools.length > 0 ? (
+    <div className="container mt-12 px-0">
+      <div className="grid grid-cols-1 gap-5 px-12 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+        {isError ? (
+          <div className="text-red-500">{error.message}</div>
+        ) : isLoading ? (
+          Array(8)
+            .fill(null)
+            .map((_, i) => <Skeleton key={i} className="h-44 w-full" />)
+        ) : poolData?.uniswapV3Pools && poolData?.uniswapV3Pools?.length > 0 ? (
           poolData?.uniswapV3Pools.map(
             ({ id, fee, token0, token1, blocks }) => (
               <LinkComponent key={id} href={`/pool/${id}`}>
