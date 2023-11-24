@@ -46,7 +46,8 @@ export function truncateEthAddress(address: string) {
 export function formatUniV3sqrtPriceX96(
   token0Decimals: number | undefined,
   token1Decimals: number | undefined,
-  sqrtPriceX96: bigint | undefined
+  sqrtPriceX96: bigint | undefined,
+  inverse = false
 ) {
   if (!token0Decimals || !token1Decimals || !sqrtPriceX96) return "0"
 
@@ -54,8 +55,9 @@ export function formatUniV3sqrtPriceX96(
   const price: string = univ3prices(
     [token0Decimals, token1Decimals],
     sqrtPriceX96.toString()
-  ).toSignificant({
+  ).toAuto({
     decimalPlaces: 2,
+    reverse: inverse,
   })
 
   return price

@@ -1,9 +1,9 @@
 "use client"
 
+import { FaExternalLinkAlt } from "react-icons/fa"
 import type { Address } from "viem"
 
 import { useErc20Name, useErc20Symbol } from "@/lib/generated/blockchain"
-import { truncateEthAddress } from "@/lib/utils"
 
 import { BlockExplorerLink } from "../blockchain/block-explorer-link"
 import { Card } from "../ui/card"
@@ -37,7 +37,7 @@ export function PoolDetailsCard({
     chainId: CHAIN_ID,
   })
 
-  const {data: token0Symbol} = useErc20Symbol({
+  const { data: token0Symbol } = useErc20Symbol({
     address: token0 as Address,
     chainId: CHAIN_ID,
   })
@@ -47,35 +47,37 @@ export function PoolDetailsCard({
     chainId: CHAIN_ID,
   })
 
-  const {data: token1Symbol} = useErc20Symbol({
+  const { data: token1Symbol } = useErc20Symbol({
     address: token1 as Address,
     chainId: CHAIN_ID,
   })
 
   return (
     <Card className="flex flex-col gap-y-1 border-2 p-6  shadow-sm">
-      <div>
+      <div className="mb-2 flex flex-col gap-y-3">
         <div className="flex items-center gap-x-4">
-          <h2 className="font-semibold">{token0Symbol}/{token1Symbol} Pool</h2>
+          <h2 className="text-2xl font-semibold">
+            {token0Symbol}/{token1Symbol}{" "}
+            <span className="ml-1 rounded-lg bg-gray-700 p-1.5 text-base text-zinc-100">
+              {fee / 10000}%
+            </span>
+          </h2>
           <BlockExplorerLink
             blockExplorerUrl="https://goerli.etherscan.io/"
             address={address as `0x${string}`}
           >
-            {truncateEthAddress(address)}
+            <FaExternalLinkAlt className="h-4 w-4 text-black hover:underline dark:text-white" />
           </BlockExplorerLink>
         </div>
-        <p className="flex gap-x-1">
-          Token0:
+        <div className="flex gap-x-1">
           <BlockExplorerLink
             className="no-underline hover:underline"
             blockExplorerUrl="https://goerli.etherscan.io/"
             address={token0 as `0x${string}`}
           >
             {token0Name}
-          </BlockExplorerLink>
-        </p>
-        <p className="flex gap-x-1">
-          Token1:
+          </BlockExplorerLink>{" "}
+          /
           <BlockExplorerLink
             className="no-underline hover:underline"
             blockExplorerUrl="https://goerli.etherscan.io/"
@@ -83,12 +85,9 @@ export function PoolDetailsCard({
           >
             {token1Name}
           </BlockExplorerLink>
-        </p>
+        </div>
         <p className="flex gap-x-1">
-          Fee: <span className="font-semibold">{fee}</span>
-        </p>
-        <p className="flex gap-x-1">
-          Observations:
+          Observations stored:
           <span className="font-semibold"> {observationsCount}</span>
         </p>
       </div>

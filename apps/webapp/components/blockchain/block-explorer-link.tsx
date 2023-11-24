@@ -22,6 +22,8 @@ export const BlockExplorerLink = ({
   const { chain } = useNetwork()
   const blockExplorer = chain?.blockExplorers?.default
 
+  const blockExplorerUrlFinal = blockExplorerUrl ?? blockExplorer?.url
+
   if (!address) return null
 
   return (
@@ -29,13 +31,15 @@ export const BlockExplorerLink = ({
       className={cn("overflow-x-auto font-medium underline", className)}
       {...props}
     >
-      {blockExplorer && (
+      {blockExplorerUrlFinal && (
         <a
-          href={`${blockExplorerUrl ?? blockExplorer.url}/${type}/${address}`}
+          href={`${blockExplorerUrlFinal}/${type}/${address}`}
           rel="noreferrer"
           target="_blank"
         >
-          {showExplorerName ? blockExplorer.name : children ?? address}
+          {showExplorerName && blockExplorer
+            ? blockExplorer.name
+            : children ?? address}
         </a>
       )}
     </span>

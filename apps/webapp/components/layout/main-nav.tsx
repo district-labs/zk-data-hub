@@ -15,11 +15,3 @@ export function MainNav() {
     </div>
   )
 }
-
-interface NavMenuListItemProps {
-  name: string
-  description: string
-  href: string
-  lightImage: string
-  darkImage: string
-}
