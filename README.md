@@ -1,6 +1,6 @@
 # ZK Data Hub
 
-![image](https://github.com/district-labs/zk-data-hub/assets/18421017/1514479d-9eac-4fbf-aa8b-6b550f038a6c)
+![image](https://github.com/district-labs/zk-data-hub/assets/18421017/07c2784f-3340-450e-aed8-7c4a223f3e92)
 
 This proof of concept application is a data hub for ZK (Zero-Knowledge) proofs using [Axiom V2](https://www.axiom.xyz/). It is implemented through the [UniswapV3TwapOracle.sol](packages/contracts/src/axiom-v2/UniswapV3TwapOracle.sol) contract. The hub functions as a Uniswap V3 TWAP (Time-Weighted Average Price) oracle, receiving Axiom V2 proofs of Uniswap V3 pools' states, represented as two storage slots:
 - [Observations Slot (0x8)](https://docs.uniswap.org/contracts/v3/reference/core/libraries/Oracle): This slot contains data about the cumulative tick, liquidity, timestamp, and the observation index of the pool.
