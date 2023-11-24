@@ -1,19 +1,10 @@
-## ZK Data Hub
+## ZK Data Hub Contracts
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+The contracts for the ZK Data Hub are split in two versions:
+- [Axiom V1](packages/contracts/src/axiom-v1): The first version of the data hub, supporting Axiom V1 proofs.
+- [Axiom V2](packages/contracts/src/axiom-v2): The up to date version of the data hub, supporting Axiom V2 proofs.
 
-Foundry consists of:
-
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
+The UniV3 TWAP oracle is implemented in the [UniswapV3TwapOracle.sol](src/axiom-v2/UniswapV3TwapOracle.sol) contract.
 
 ### Build
 
@@ -48,7 +39,8 @@ $ anvil
 ### Deploy
 
 ```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+source .env
+forge script script/deploy/UniswapV3TwapOracleDeploy.s.sol  --rpc-url $GOERLI_RPC_URL --broadcast --verify 
 ```
 
 ### Cast
