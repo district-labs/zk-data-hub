@@ -15,9 +15,6 @@ pnpm install
 The app uses [t3-env](https://github.com/t3-oss/t3-env) to validate environment variables. View [env.mjs](env.mjs) for more details. Create a `.env` file in the root directory of the project and add the following variables to it:
 
 ```
-# Iron Session Secret
-NEXTAUTH_SECRET
-
 # ZK Data Hub Ponder URL
 NEXT_PUBLIC_PONDER_URL
 

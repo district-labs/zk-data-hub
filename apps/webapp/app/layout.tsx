@@ -8,7 +8,6 @@ import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
 import { NetworkStatus } from "@/components/blockchain/network-status"
-import { WalletConnect } from "@/components/blockchain/wallet-connect"
 import { Footer } from "@/components/layout/footer"
 import { SiteHeader } from "@/components/layout/site-header"
 import RootProvider from "@/components/providers/root-provider"
@@ -54,9 +53,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <Footer />
           </div>
           <NetworkStatus />
-          <div className="fixed bottom-6 right-6">
-            <WalletConnect />
-          </div>
         </RootProvider>
       </body>
     </html>

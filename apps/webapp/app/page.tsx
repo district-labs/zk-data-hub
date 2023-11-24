@@ -4,10 +4,10 @@ import { env } from "@/env.mjs"
 import { useQuery } from "@tanstack/react-query"
 import request from "graphql-request"
 
-import { allPoolsWithBlocks } from "@/lib/ponder/queries/pools"
-import { Skeleton } from "@/components/ui/skeleton"
 import { PoolCard } from "@/components/app/pool-card"
 import { LinkComponent } from "@/components/shared/link-component"
+import { Skeleton } from "@/components/ui/skeleton"
+import { allPoolsWithBlocks } from "@/lib/ponder/queries/pools"
 
 export default function HomePage() {
   const {
@@ -22,8 +22,8 @@ export default function HomePage() {
   })
 
   return (
-    <div className="container mt-12 px-0">
-      <div className="grid grid-cols-1 gap-5 px-6 sm:grid-cols-2 sm:px-10 md:grid-cols-3 xl:grid-cols-4">
+    <div className="container mt-12 px-6 sm:px-10">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2  md:grid-cols-3 xl:grid-cols-4">
         {isError ? (
           <div className="text-red-500">{error.message}</div>
         ) : isLoading ? (
